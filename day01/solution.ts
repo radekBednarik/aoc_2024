@@ -43,8 +43,6 @@ for (const num of input[0]) {
     }
 
     computed.set(num, num * count);
-  } else {
-    computed[num] += computed[num];
   }
 }
 
