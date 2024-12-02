@@ -50,9 +50,3 @@ for (const report of input) {
 console.log(safeReports);
 
 // part 2
-const safeReportsTwo = 0;
-for (const report of input) {
-	console.log("---");
-}
-
-console.log(safeReportsTwo);
