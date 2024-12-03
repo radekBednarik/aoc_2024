@@ -21,3 +21,23 @@ const resultOne = input
 	}, 0);
 
 console.log(resultOne);
+
+// part 2
+// used Copilot on this, because I suck
+//
+let enabled = true;
+const resultTwo = input
+	.split(/(?=do\(\)|don't\(\)|mul\(\d+,\d+\))/)
+	.reduce((acc, part) => {
+		if (part.match(/do\(\)/)) {
+			enabled = true;
+		} else if (part.match(/don't\(\)/)) {
+			enabled = false;
+		} else if (enabled && part.match(/mul\((\d+),(\d+)\)/)) {
+			const [_, a, b] = part.match(/mul\((\d+),(\d+)\)/)!;
+			acc += Number(a) * Number(b);
+		}
+		return acc;
+	}, 0);
+
+console.log(resultTwo);
