@@ -28,4 +28,41 @@ for (const rule of rules) {
   }
 }
 
-console.log(JSON.stringify(pagesNums));
+// part one:
+
+const correctlyOrdered: number[][] = [];
+
+for (const row of pagesNums) {
+  const result = row
+    .map((num, i) => {
+      const arr = rulesMap.get(num) as number[];
+      const subArr = row.slice(i + 1);
+      return subArr
+        .map((num) => {
+          if (arr.includes(num)) {
+            return true;
+          }
+          return false;
+        })
+        .every((item) => {
+          return item === true;
+        });
+    })
+    .every((item) => {
+      return item === true;
+    });
+
+  result && correctlyOrdered.push(row);
+}
+
+const middleNumsTotal = correctlyOrdered
+  .map((arr) => {
+    const middleIndex = Math.floor(arr.length / 2);
+
+    return arr[middleIndex];
+  })
+  .reduce((acc, num) => {
+    return (acc += num);
+  }, 0);
+
+console.log(middleNumsTotal);
