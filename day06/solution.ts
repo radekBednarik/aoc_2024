@@ -21,9 +21,13 @@ const startDir = directions[grid[startPos![0]][startPos![1]]];
 
 positions.add(startPos);
 
+simulate();
+
+console.log("part one - visited: ", positions.size);
+
 function simulate() {
 	const pos = startPos;
-	const dir = startDir;
+	let dir = startDir;
 
 	while (true) {
 		if (isOutOfBounds(pos, grid)) {
@@ -34,7 +38,9 @@ function simulate() {
 		const nextItem = grid[nextX][nextY];
 
 		if (nextItem === "#") {
-			//
+			dir = setNextDirection(dir, directions);
+			positions.add(pos);
+			continue;
 		}
 	}
 }
@@ -75,4 +81,15 @@ function getNextPosition(curPosition: [number, number], direction: string) {
 	}
 
 	return [x - 1, y];
+}
+
+function setNextDirection(currDir: string, directions: Record<string, string>) {
+	const values = Object.values(directions);
+	const currIndex = values.indexOf(currDir);
+
+	if (currIndex === values.length - 1) {
+		return values[0];
+	}
+
+	return values[currIndex + 1];
 }
