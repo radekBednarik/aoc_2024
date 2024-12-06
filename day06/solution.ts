@@ -8,25 +8,24 @@ const grid = raw
 		return row.split("");
 	});
 
-const directions = new Map();
-directions.set("right", ">");
-directions.set("down", "\u25BC");
-directions.set("left", "<");
-directions.set("up", "^");
+const directions = {
+	">": ">",
+	"\u25BC": "\u25BC",
+	"<": "<",
+	"^": "^",
+};
 
 const positions = new Set();
 positions.add(findStartingPosition(grid, directions));
 
 function findStartingPosition(
 	grid: string[][],
-	directions: Map<string, string>,
+	directions: Record<string, string>,
 ) {
 	for (let i = 0; i < grid.length; i++) {
 		for (let j = 0; j < grid[i].length; j++) {
-			for (const item of directions.values()) {
-				if (item === grid[i][j]) {
-					return [i, j];
-				}
+			if (Object.values(directions).includes(grid[i][j])) {
+				return [i, j];
 			}
 		}
 	}
