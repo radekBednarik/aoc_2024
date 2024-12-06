@@ -16,7 +16,14 @@ const directions = {
 };
 
 const positions = new Set();
-positions.add(findStartingPosition(grid, directions));
+const startPos = findStartingPosition(grid, directions);
+const startDir = directions[grid[startPos![0]][startPos![1]]];
+
+positions.add(startPos);
+
+function simulate() {
+	//
+}
 
 function findStartingPosition(
 	grid: string[][],
@@ -30,5 +37,3 @@ function findStartingPosition(
 		}
 	}
 }
-
-console.log(positions);
