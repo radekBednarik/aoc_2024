@@ -66,7 +66,7 @@ function findStartingPosition(
 function isOutOfBounds(position: [number, number], grid: string[][]) {
 	const [x, y] = position;
 
-	return x < 0 || x >= grid[0].length || y < 0 || y >= grid.length;
+	return x < 0 || x >= grid.length || y < 0 || y >= grid[0].length;
 }
 
 function getNextPosition(curPosition: [number, number], direction: string) {
