@@ -19,8 +19,6 @@ const positions = new Set();
 const startPos = findStartingPosition(grid, directions);
 const startDir = directions[grid[startPos![0]][startPos![1]]];
 
-positions.add(startPos);
-
 simulate();
 
 console.log("part one - visited: ", positions.size);
@@ -32,6 +30,7 @@ function simulate() {
 	let dir = startDir;
 
 	while (true) {
+		positions.add(JSON.stringify(pos));
 		const [nextX, nextY] = getNextPosition(pos, dir);
 
 		if (isOutOfBounds([nextX, nextY], grid)) {
@@ -46,7 +45,6 @@ function simulate() {
 		}
 
 		pos = [nextX, nextY];
-		positions.add(pos);
 	}
 }
 
@@ -72,20 +70,21 @@ function isOutOfBounds(position: [number, number], grid: string[][]) {
 }
 
 function getNextPosition(curPosition: [number, number], direction: string) {
+	// X is ROW index!!!!! which means vertical movement, stupid!!!
 	const [x, y] = curPosition;
 	if (direction === "^") {
-		return [x, y - 1];
+		return [x - 1, y];
 	}
 
 	if (direction === ">") {
-		return [x + 1, y];
-	}
-
-	if (direction === "\u25BC") {
 		return [x, y + 1];
 	}
 
-	return [x - 1, y];
+	if (direction === "\u25BC") {
+		return [x + 1, y];
+	}
+
+	return [x, y - 1];
 }
 
 function setNextDirection(currDir: string, directions: Record<string, string>) {
