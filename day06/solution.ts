@@ -25,23 +25,28 @@ simulate();
 
 console.log("part one - visited: ", positions.size);
 
+// HELPER functions
+
 function simulate() {
-	const pos = startPos;
+	let pos = startPos;
 	let dir = startDir;
 
 	while (true) {
-		if (isOutOfBounds(pos, grid)) {
+		const [nextX, nextY] = getNextPosition(pos, dir);
+
+		if (isOutOfBounds([nextX, nextY], grid)) {
 			break;
 		}
 
-		const [nextX, nextY] = getNextPosition(pos, dir);
 		const nextItem = grid[nextX][nextY];
 
 		if (nextItem === "#") {
 			dir = setNextDirection(dir, directions);
-			positions.add(pos);
 			continue;
 		}
+
+		pos = [nextX, nextY];
+		positions.add(pos);
 	}
 }
 
@@ -69,7 +74,7 @@ function isOutOfBounds(position: [number, number], grid: string[][]) {
 function getNextPosition(curPosition: [number, number], direction: string) {
 	const [x, y] = curPosition;
 	if (direction === "^") {
-		return [x, y + 1];
+		return [x, y - 1];
 	}
 
 	if (direction === ">") {
@@ -77,7 +82,7 @@ function getNextPosition(curPosition: [number, number], direction: string) {
 	}
 
 	if (direction === "\u25BC") {
-		return [x, y - 1];
+		return [x, y + 1];
 	}
 
 	return [x - 1, y];
