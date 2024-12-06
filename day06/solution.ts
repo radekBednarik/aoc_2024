@@ -26,14 +26,23 @@ function simulate() {
 	const dir = startDir;
 
 	while (true) {
-    if (isOutOfBounds(pos, grid))
-  }
+		if (isOutOfBounds(pos, grid)) {
+			break;
+		}
+
+		const [nextX, nextY] = getNextPosition(pos, dir);
+		const nextItem = grid[nextX][nextY];
+
+		if (nextItem === "#") {
+			//
+		}
+	}
 }
 
 function findStartingPosition(
 	grid: string[][],
 	directions: Record<string, string>,
-) : [number, number]{
+): [number, number] {
 	for (let i = 0; i < grid.length; i++) {
 		for (let j = 0; j < grid[i].length; j++) {
 			if (Object.values(directions).includes(grid[i][j])) {
@@ -42,7 +51,7 @@ function findStartingPosition(
 		}
 	}
 
-  throw new Error("Did not found starting point")
+	throw new Error("Did not found starting point");
 }
 
 function isOutOfBounds(position: [number, number], grid: string[][]) {
@@ -51,4 +60,19 @@ function isOutOfBounds(position: [number, number], grid: string[][]) {
 	return x < 0 || x >= grid[0].length || y < 0 || y >= grid.length;
 }
 
-console.log(startDir, startPos);
+function getNextPosition(curPosition: [number, number], direction: string) {
+	const [x, y] = curPosition;
+	if (direction === "^") {
+		return [x, y + 1];
+	}
+
+	if (direction === ">") {
+		return [x + 1, y];
+	}
+
+	if (direction === "\u25BC") {
+		return [x, y - 1];
+	}
+
+	return [x - 1, y];
+}
