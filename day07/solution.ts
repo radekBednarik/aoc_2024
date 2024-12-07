@@ -25,32 +25,41 @@ const input = raw_2.map((row) => {
 
 // part one:
 
-let partOneResult = 0;
+function solvePartOne() {
+	let partOneResult = 0;
 
-for (const row of input) {
-	const [result, numbers] = row;
-	const combinations = generateCombinations(numbers);
+	for (const row of input) {
+		const [result, numbers] = row;
+		const combinations = generateCombinations(numbers);
 
-	for (const combination of combinations) {
-		let tempResult = numbers[0];
+		for (const combination of combinations) {
+			let tempResult = numbers[0];
 
-		for (let i = 0; i < combination.length; i++) {
-			const op = combination[i];
-			const number = numbers[i + 1];
+			for (let i = 0; i < combination.length; i++) {
+				const op = combination[i];
+				const number = numbers[i + 1];
 
-			if (op === "*") {
-				tempResult *= number;
-			} else {
-				tempResult += number;
+				if (op === "*") {
+					tempResult *= number;
+				} else {
+					tempResult += number;
+				}
+			}
+
+			if (result === tempResult) {
+				partOneResult += result;
+				break;
 			}
 		}
-
-		if (result === tempResult) {
-			partOneResult += result;
-			break;
-		}
 	}
+
+	return partOneResult;
 }
+
+console.time("Execution Time: ");
+const partOneResult = solvePartOne();
+
+console.timeEnd("Execution Time: ");
 
 console.log(partOneResult);
 
