@@ -12,9 +12,13 @@ const initDiskMap = mapDisk(input);
 
 console.log(initDiskMap);
 
-const diskArray = createDiskArr(initDiskMap);
+const diskImage = createDiskImage(initDiskMap);
 
-console.log(diskArray);
+console.log(diskImage);
+
+const compactedDisk = compactDisk(diskImage);
+
+console.log(compactedDisk);
 
 // helper functions
 
@@ -34,7 +38,9 @@ function mapDisk(
 	return map;
 }
 
-function createDiskArr(diskMap: { type: "file" | "empty"; length: number }[]) {
+function createDiskImage(
+	diskMap: { type: "file" | "empty"; length: number }[],
+) {
 	const diskArr: string[] = [];
 	let fileIndex = 0;
 
@@ -52,4 +58,36 @@ function createDiskArr(diskMap: { type: "file" | "empty"; length: number }[]) {
 	});
 
 	return diskArr.join("");
+}
+
+function compactDisk(diskImage: string) {
+	const arr = diskImage.split("");
+
+	for (let i = 0; i < arr.length; i++) {
+		const rightSide = arr.slice(i);
+		const flag = rightSide.every((val) => {
+			return val === ".";
+		});
+
+		if (flag) {
+			break;
+		}
+
+		const char = arr[i];
+
+		if (char === ".") {
+			for (let j = arr.length - 1; j > 0; j--) {
+				const endChar = arr[j];
+
+				if (endChar !== ".") {
+					const temp = arr[j];
+					arr[j] = arr[i];
+					arr[i] = temp;
+					break;
+				}
+			}
+		}
+	}
+
+	return arr.join("");
 }
