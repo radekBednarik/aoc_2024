@@ -12,7 +12,9 @@ const initDiskMap = mapDisk(input);
 
 // helper functions
 
-function mapDisk(input: number[]) {
+function mapDisk(
+	input: number[],
+): { type: "file" | "empty"; length: number }[] {
 	const map: { type: "file" | "empty"; length: number }[] = [];
 
 	input.forEach((val) => {
