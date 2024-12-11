@@ -10,7 +10,7 @@ const input = raw
 
 let arr: number[] = [];
 
-for (let i = 0; i < 75; i++) {
+for (let i = 0; i < 25; i++) {
 	const temp = i === 0 ? input : arr;
 	const tempArr: number[] = [];
 
